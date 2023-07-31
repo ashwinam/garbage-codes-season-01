@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "garbage-codes-season-01"
+version = "0.1.0"
+description = "All garbage code here"
+authors = ["ashwinPy <ashwinam31@gmail.com>"]
+readme = "README.md"
+packages = [{include = "garbage_codes_season_01"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.3"
+djangorestframework = "^3.14.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
