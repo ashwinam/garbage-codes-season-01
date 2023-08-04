@@ -20,6 +20,11 @@ def remove_char(string, no):
 
     return output
 
+# other solutions
+
+
+print('pynative'[2:])
+
 
 print(remove_char('pynative', 4))
 print(remove_char('pynative', 2))
