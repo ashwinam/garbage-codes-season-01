@@ -18,3 +18,11 @@ print('Printing only even index chars')
 for i in range(len(user_input)):
     if i % 2 == 0:  # even
         print(user_input[i])
+
+
+# other solutions
+
+word = list(user_input)
+
+for row in word[::2]:
+    print(row, 'W')
