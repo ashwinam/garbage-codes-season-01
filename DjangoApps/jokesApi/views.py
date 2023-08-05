@@ -33,3 +33,30 @@ class JokesView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+
+# From chatGpt reference
+'''
+from rest_framework import generics
+from .models import Joke
+from .serializers import JokeSerializer
+
+class JokeListCreateView(generics.ListCreateAPIView):
+    queryset = Joke.objects.all()
+    serializer_class = JokeSerializer
+
+class RandomJokeView(generics.RetrieveAPIView):
+    queryset = Joke.objects.all()
+    serializer_class = JokeSerializer
+
+    def get_object(self):
+        return Joke.objects.order_by('?').first()
+
+class JokeByCategoryView(generics.ListAPIView):
+    serializer_class = JokeSerializer
+
+    def get_queryset(self):
+        category = self.kwargs['category']
+        return Joke.objects.filter(category=category)
+
+'''
