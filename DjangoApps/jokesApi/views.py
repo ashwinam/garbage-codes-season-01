@@ -6,7 +6,6 @@ from .models import JokesModel
 from .serializers import JokesSerializer
 
 import random
-import traceback
 
 
 class JokesView(APIView):
@@ -58,5 +57,16 @@ class JokeByCategoryView(generics.ListAPIView):
     def get_queryset(self):
         category = self.kwargs['category']
         return Joke.objects.filter(category=category)
+
+        
+        ----------------------------- urls
+from django.urls import path
+from .views import JokeListCreateView, RandomJokeView, JokeByCategoryView
+
+urlpatterns = [
+    path('jokes/', JokeListCreateView.as_view(), name='joke-list-create'),
+    path('jokes/random/', RandomJokeView.as_view(), name='random-joke'),
+    path('jokes/<str:category>/', JokeByCategoryView.as_view(), name='joke-by-category'),
+]
 
 '''
