@@ -26,3 +26,30 @@ def is_paliandrome(num_input):
 
 
 print(is_paliandrome(121))
+
+
+def is_paliandrome_using_remainder_calculation(n_inp):
+    original_number = n_inp
+
+    reverse_number = 0
+    while n_inp > 0:
+        remainder = n_inp % 10
+        n_inp = n_inp // 10
+
+        reverse_number = (reverse_number * 10) + remainder
+        '''
+        above calculation
+        (0 * 10) + 5 = 5
+        (5 * 10) + 2 = 52
+        (52 * 10) + 5 = 525
+        '''
+
+    return original_number == reverse_number
+
+
+is_paliandrome_num = is_paliandrome_using_remainder_calculation(525)
+
+if is_paliandrome_num:
+    print('Given number is paliandrome.')
+else:
+    print('Not a prime number.')
