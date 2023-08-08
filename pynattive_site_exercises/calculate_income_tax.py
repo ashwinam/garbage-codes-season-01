@@ -35,3 +35,26 @@ def calculate_tax(income):
 
 
 print(calculate_tax(29000))
+
+
+# Better solution
+
+def calculate_accurate_tax(taxable_income):
+
+    tax_payable = 0
+
+    if taxable_income <= 10000:
+        tax_payable = 0
+    elif taxable_income <= 20000:
+        income = taxable_income - 10000
+        tax_payable = income * 0.10
+    else:
+        tax_payable = 10000 * 0.10
+        remainig_income = taxable_income - 20000
+
+        tax_payable += remainig_income * 0.20
+
+    return f'Total tax payable is {tax_payable}'
+
+
+print(calculate_accurate_tax(25000))
