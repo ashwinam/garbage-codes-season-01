@@ -11,3 +11,13 @@ with open('file_10.txt') as file:
     for line, content in enumerate(file.readlines(), start=1):
         if line == 4:
             print(content)
+
+
+# second solution
+
+# read file
+with open("test.txt", "r") as fp:
+    # read all lines from a file
+    lines = fp.readlines()
+    # get line number 3
+    print(lines[2])
