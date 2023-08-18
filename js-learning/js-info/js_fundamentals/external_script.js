@@ -1,0 +1,1 @@
+alert('Hello from outside js file.')
