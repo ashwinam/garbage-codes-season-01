@@ -1,4 +1,4 @@
-// Task 
+    // Task 
     // 1. working with variables
     /* 
     1. Declare two variables: admin and name.
@@ -9,9 +9,9 @@
     */
 
     let admin;
-    let name;
+    let names;
 
-    name = 'john';
+    names = 'john';
 
-    admin = name;
+    admin = names;
     alert(admin);
