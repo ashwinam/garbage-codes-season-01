@@ -17,3 +17,8 @@ lst = [10, 20, 30, 40, 50]
 
 for num in range(len(lst) - 1, -1, -1):
     print(lst[num])
+
+# other solutions
+
+for num1 in list(reversed(lst)):
+    print(num1)
