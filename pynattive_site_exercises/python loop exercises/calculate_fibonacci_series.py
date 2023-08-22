@@ -7,12 +7,17 @@ For example, 0, 1, 1, 2, 3, 5, 8, 13, 21. The next number in this series above i
 
 
 '''
-
+# set up the positions with values
 pre_num = 0
 current_num = 1
 
 for num in range(10):
+    # print the first value
     print(pre_num, end=', ')
+
+    # calculate current position
     total = pre_num + current_num
+
+    # updating values
     pre_num = current_num
     current_num = total
