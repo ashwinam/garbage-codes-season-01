@@ -28,4 +28,13 @@ Here, the first operand is a string, the compiler treats the other two operands 
 
 The binary + is the only operator that supports strings in such a way. Other arithmetic operators work only with numbers and always convert their operands to numbers.
 
+let apples = "2";
+let oranges = "3";
+
+// both values converted to numbers before the binary plus
+alert( +apples + +oranges ); // 5
+
+// the longer variant
+// alert( Number(apples) + Number(oranges) ); // 5
+
 */
