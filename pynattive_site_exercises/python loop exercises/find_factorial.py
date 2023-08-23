@@ -8,12 +8,18 @@ The factorial (symbol: !) means to multiply all whole numbers from the chosen nu
 5 = 5 * 4 * 3 * 2 * 1
 '''
 
-res = 1
+factorial = 1
 
 inp = 5
 
-while inp > 0:
-    res *= inp
-    inp -= 1
 
-print(res)
+if inp < 0:  # checking negative numbers
+    print('Negative numbers are not allowed.')
+elif inp == 0:  # checking number is 0 or not
+    print('Factorial of 0 is 1')
+else:  # number should be greater than 0
+    while inp > 0:
+        factorial *= inp
+        inp -= 1
+
+print(factorial)
