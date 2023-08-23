@@ -23,3 +23,12 @@ else:  # number should be greater than 0
         inp -= 1
 
 print(factorial)
+
+
+# Using for loop
+num = 5
+
+for i in range(1, num + 1):
+    # multiply factorial by current number
+    factorial = factorial * i
+print("The factorial of", num, "is", factorial)
