@@ -30,8 +30,23 @@ for i in range(5):
     temp = 0
     for j in range(i+1):
         temp = (temp * 10) + 2
-    print(temp)
     sol += temp
 
 
 print(sol, '>>>>')
+
+
+# other solution
+
+n = 5
+# first number of sequence
+start = 2
+sum_seq = 0
+
+# run loop n times
+for i in range(0, n):
+    print(start, end="+")
+    sum_seq += start
+    # calculate the next term
+    start = start * 10 + 2
+print("\nSum of above series is:", sum_seq)
