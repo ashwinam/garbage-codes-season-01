@@ -14,4 +14,26 @@ ex '01' == 1 // '01' --> 1
 
 *string comparison
 it compares 'Z' > 'A' = true  it uses dictionary or lexicography for comparing the strings
+
+
+***********
+== it changes the types in Number
+==== without changing types it compares
+
+
+Task
+
+"apple" > "pineapple"
+false
+"2" > "12"
+true
+undefined == null
+true
+undefined === null
+false
+null == "\n0\n"
+false
+null === +"\n0\n"
+false
+
 */
