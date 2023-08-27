@@ -16,14 +16,13 @@
 '''
 
 for row in range(9):
-    for col in range(row + 1):
-        if col >= (row // 2) + 1:
-            break
-        else:
+    if row < 5:
+        for col in range(row + 1):
             print('x', end=' ')
 
-    for col2 in range(row - 1, 0, -1):
-        print('*', end=' ')
+    if row >= 5:
+        for col2 in range(9-row):
+            print('x', end=' ')
     print()
 
     # Lets solve this bad boy tomorrow
