@@ -29,4 +29,8 @@ def find_largest(lst):
 x = [4, 6, 8, 24, 12, 2]
 result = find_largest(x)
 
+# other solution
+
+print(max(x))
+
 print(result)
