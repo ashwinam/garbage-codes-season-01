@@ -9,3 +9,7 @@ range = 4 -- 30
 lst = [num for num in range(4, 30) if num % 2 == 0]
 
 print(lst)
+
+# other solution
+
+print(list(range(4, 30, 2)))
