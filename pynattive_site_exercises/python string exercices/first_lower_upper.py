@@ -25,3 +25,21 @@ def arrange_string_lower_to_upper(string):
 result = arrange_string_lower_to_upper('PyNaTive')
 
 print(result)
+
+# Other Solution
+
+str1 = "PYnAtivE"
+print('Original String:', str1)
+lower = []
+upper = []
+for char in str1:
+    if char.islower():
+        # add lowercase characters to lower list
+        lower.append(char)
+    else:
+        # add uppercase characters to lower list
+        upper.append(char)
+
+# Join both list
+sorted_str = ''.join(lower + upper)
+print('Result:', sorted_str)
