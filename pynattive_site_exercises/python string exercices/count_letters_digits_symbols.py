@@ -7,18 +7,23 @@ checking each characteris aplpha, digits or symbols
 str1 = "P@#yn26at^&i5ve"
 
 
-chars = 0
-digits = 0
-symbols = 0
+def count_different_strings(string):
 
-for each_char in str1:
-    if each_char.isalpha():
-        chars += 1
-    elif each_char.isdigit():
-        digits += 1
-    else:
-        symbols += 1
+    chars = 0
+    digits = 0
+    symbols = 0
 
-print(chars)
-print(digits)
-print(symbols)
+    for each_char in str1:
+        if each_char.isalpha():
+            chars += 1
+        elif each_char.isdigit():
+            digits += 1
+        else:
+            symbols += 1
+
+    print(chars)
+    print(digits)
+    print(symbols)
+
+
+count_different_strings(str1)
