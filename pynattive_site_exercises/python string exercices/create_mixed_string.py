@@ -15,7 +15,7 @@ s3 = ?
 '''
 
 s1 = "Abcd"
-s2 = "Wxyz"
+s2 = "Vwxyz"
 s3 = ''
 for ind in range(len(s1)):
     if len(s1) != len(s2):
@@ -25,3 +25,25 @@ for ind in range(len(s1)):
     s3 += s2[len(s2) - (ind + 1)]
 else:
     print(s3, '>>>>>>')
+
+# Other solution
+
+s1Length = len(s1)
+s2Length = len(s2)
+
+# max length
+
+length = s1Length if s1Length > s2Length else s2Length
+
+# reverse the s2
+s2 = s2[::-1]
+
+op = ''
+
+for i in range(length):
+    if i < s1Length:
+        op += s1[i]
+    if i < s2Length:
+        op += s2[i]
+
+print(op)
