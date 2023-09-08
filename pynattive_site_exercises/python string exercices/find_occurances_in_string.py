@@ -8,6 +8,9 @@ Expected output:
 '''
 
 
+from collections import Counter
+
+
 def find_occurances(string):
     all_occuraces = {}
 
@@ -22,3 +25,8 @@ def find_occurances(string):
 result = find_occurances("Apple")
 
 print(result)
+
+
+str1 = "AppleA"
+
+print(Counter(str1))
