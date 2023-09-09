@@ -10,6 +10,9 @@ print(reverse_string)
 
 
 # Solution using reversed
-result = ''.join(list(reversed(str1)))
+result = ''.join(reversed(str1))
 
 print(result)
+
+# using slicing
+print(str1[::-1])
