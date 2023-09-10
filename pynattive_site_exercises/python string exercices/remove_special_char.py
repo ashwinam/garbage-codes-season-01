@@ -6,6 +6,7 @@ Loop Through sentences.split('')
         if true then add to the list
 '''
 
+import string
 str1 = "/*Jon is @developer & musician"
 
 result = ''
@@ -16,3 +17,14 @@ for char in str1:
         result += char
 
 print(result)
+
+
+# Other solution using string punctuation
+
+
+str1 = "/*Jon is @developer & musician"
+print("Original string is ", str1)
+
+new_str = str1.translate(str.maketrans('', '', string.punctuation))
+
+print("New string is ", new_str)
