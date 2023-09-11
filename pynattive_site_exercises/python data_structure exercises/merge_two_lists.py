@@ -22,3 +22,19 @@ for eachInd, eachNum in enumerate(l2):
         new_list.append(eachNum)
 
 print(new_list)
+
+# Other solution using extend and slicing
+
+
+l1 = [3, 6, 9, 12, 15, 18, 21]
+l2 = [4, 8, 12, 16, 20, 24, 28]
+
+l3 = []
+
+l1 = l1[1::2]  # return odd index values
+l2 = l2[0::2]  # return even index values
+
+l3.extend(l1)
+l3.extend(l2)
+
+print(l3, 'l3')
