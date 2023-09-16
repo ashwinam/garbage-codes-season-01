@@ -15,3 +15,23 @@ print(max(tuple_ele))
 
 # Minimum
 print(min(tuple_ele))
+
+
+# Other solutions
+
+maximum = 0
+
+for ele in tuple_ele:
+    if maximum < ele:
+        maximum = ele
+
+print(maximum, 'maximm')
+
+# minimum
+
+minimum = tuple_ele[0]
+for ele in tuple_ele:
+    if minimum > ele:
+        minimum = ele
+
+print(minimum, 'minimm')
