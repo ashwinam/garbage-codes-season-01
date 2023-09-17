@@ -11,6 +11,10 @@
 
 list1 = [100, 200, 300, 400, 500]
 
-print(list1.reverse())
+# list1.reverse()
 
 print(list1)
+
+# using slicing
+
+print(list1[::-1])
