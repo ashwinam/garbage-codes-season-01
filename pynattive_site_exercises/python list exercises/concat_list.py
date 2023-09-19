@@ -10,3 +10,11 @@ for first_ele in list1:
         solution.append(first_ele + ' ' + second_ele)
 
 print(solution)
+
+# Other solution
+
+list1 = ["Hello ", "take "]
+list2 = ["Dear", "Sir"]
+
+res = [x + y for x in list1 for y in list2]
+print(res)
