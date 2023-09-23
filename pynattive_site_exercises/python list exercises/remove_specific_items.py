@@ -10,3 +10,7 @@ while 20 in list1:
     list1.remove(20)
 
 print(list1)
+
+# using list comprehension
+
+print([ele for ele in list1 if ele != 20])
