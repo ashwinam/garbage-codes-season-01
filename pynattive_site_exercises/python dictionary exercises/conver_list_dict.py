@@ -11,3 +11,15 @@ print({k: v for k, v in zip(keys, values)})
 
 # Usint dict function
 print(dict(zip(keys, values)))
+
+
+# Usign loop
+keys = ['Ten', 'Twenty', 'Thirty']
+values = [10, 20, 30]
+
+# empty dictionary
+res_dict = dict()
+
+for i in range(len(keys)):
+    res_dict.update({keys[i]: values[i]})
+print(res_dict)
