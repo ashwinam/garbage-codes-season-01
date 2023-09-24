@@ -8,3 +8,6 @@ keys = ['Ten', 'Twenty', 'Thirty']
 values = [10, 20, 30]
 
 print({k: v for k, v in zip(keys, values)})
+
+# Usint dict function
+print(dict(zip(keys, values)))
