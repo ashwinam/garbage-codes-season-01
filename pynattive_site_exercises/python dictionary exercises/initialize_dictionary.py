@@ -9,3 +9,5 @@ for employee in employees:
     output[employee] = defaults
 
 print(output)
+
+print({k: defaults for k in employees})
