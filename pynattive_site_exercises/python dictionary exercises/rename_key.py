@@ -24,3 +24,16 @@ for k, v in zip(list_of_keys, list_of_values):
     new_dict[k] = v
 
 print(new_dict)
+
+
+# other solution
+
+sample_dict = {
+    "name": "Kelly",
+    "age": 25,
+    "salary": 8000,
+    "city": "New york"
+}
+
+sample_dict['location'] = sample_dict.pop('city')
+print(sample_dict)
