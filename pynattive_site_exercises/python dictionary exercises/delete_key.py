@@ -10,7 +10,9 @@ sample_dict = {
 # Keys to remove
 keys = ["name", "salary"]
 
-for key in keys:
-    del sample_dict[key]
+# for key in keys:
+#     del sample_dict[key]
 
-print(sample_dict)
+# print(sample_dict)
+
+print({k: v for k, v in sample_dict.items() if k not in keys})
