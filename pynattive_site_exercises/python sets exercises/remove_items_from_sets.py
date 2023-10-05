@@ -10,3 +10,8 @@ for i in [10, 20, 30]:
     set1.discard(i)
 
 print(set1)
+
+# Other solution
+
+set1.difference_update({10, 20, 30})
+print(set1)
