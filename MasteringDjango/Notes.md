@@ -8,7 +8,7 @@ Roadmap/Plan for building product
 5. designing
 6. DB schema? --> designing table
 
-Relationships
+Relationships~
 1. OnetoOne relationship --> User --> Cart
 2. OnetoMany relationship -->  Cart --> Prouct
 3. ManytoMany relationship --> user to instruments.
