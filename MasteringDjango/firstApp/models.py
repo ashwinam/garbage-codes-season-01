@@ -10,6 +10,13 @@ class Product(models.Model):
     def __str__(self) -> str:
         return str(self.product_name)
     
+# Creating Custome Manager
+class CartManager(models.Manager):
+    def create_cart(self, user):
+        cart = self.create(user=user)
+        # perform other operations here
+        return cart
+
 class Cart(models.Model):
     cart_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
