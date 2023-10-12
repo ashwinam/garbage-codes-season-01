@@ -21,3 +21,9 @@ option field.
     'Shipped',
     'Delivered'
 ]
+
+### Creating Custom User Model
+
+TODO: Learn about Model Manager
+TODO: Learn About User Model 
+TODO: Learn About AbstractUser, AbstractBaseUser
