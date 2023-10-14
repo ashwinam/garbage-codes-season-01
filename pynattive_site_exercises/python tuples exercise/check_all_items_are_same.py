@@ -17,3 +17,11 @@ if flag:
     print('All items are same in the tuple.')
 else:
     print('All items in the tuple are not same.')
+
+# Other solution
+
+def check(t):
+    return all(i == t[0] for i in t)
+
+tuple1 = (45, 45, 45, 55)
+print(check(tuple1))
