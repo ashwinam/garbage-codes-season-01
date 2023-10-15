@@ -4,3 +4,10 @@
 from datetime import datetime
 
 print(datetime.now())
+
+# only time
+print(datetime.now().time())
+
+
+# only date
+print(datetime.now().date())
