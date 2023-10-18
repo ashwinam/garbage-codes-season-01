@@ -11,6 +11,7 @@ python = "^3.11"
 django = "^4.2.3"
 djangorestframework = "^3.14.0"
 requests = "^2.31.0"
+social-auth-app-django = "^5.4.0"
 
 
 [build-system]
