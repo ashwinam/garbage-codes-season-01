@@ -1,6 +1,8 @@
 from django.urls import path, include
 from user.views import dashboard, register
 
+# from django.contrib.auth import urls
+
 
 '''
     path('accounts/', include("django.contrib.auth.urls")),
