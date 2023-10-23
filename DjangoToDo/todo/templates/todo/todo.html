@@ -46,11 +46,12 @@
                       </tr>
                     </thead>
                     <tbody>
+                      {% for object in objects %}
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ object.todo_name }}</td>
+                        <td>{{ object.todo_description }}</td>
+                        <td>{{ object.status }}</td>
                         <td>
                         <span class="px-1 cursor-pointer">
                             <i class="bi bi-pencil-square"></i>
@@ -60,7 +61,8 @@
                         </span>
                         </td>
                       </tr>
-                      <tr>
+                      {% endfor %}
+                      {% comment %} <tr>
                         <th scope="row">2</th>
                         <td>Jacob</td>
                         <td>Thornton</td>
@@ -86,7 +88,7 @@
                                 <i class="bi bi-trash"></i>
                             </span>
                             </td>
-                      </tr>
+                      </tr> {% endcomment %}
                     </tbody>
                   </table>
             </div>
