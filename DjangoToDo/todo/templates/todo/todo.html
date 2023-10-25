@@ -3,28 +3,31 @@
 {% block doc_title %}ToDo | Homepage{% endblock doc_title %}
 
 {% block content %}
-<div class="mx-3 mt-5 ">
+<div class="mx-3 mt-5">
     <div class="row align-items-start">
       <div class="col-3">
         <div class="card shadow p-3 mb-5 bg-body rounded-3">
             <div class="card-header">
                 Add ToDo
                </div>
+               <form action="{% url "todos" %}" method="post">
+                {% csrf_token %}
             <div class="card-body">
-                
               <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <label for="todo_name_id" class="form-label">ToDo Name</label>
+                <input type="text" class="form-control" id="todo_name_id" placeholder="ToDo ..." name="todo_name">
               </div>
               <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="todo_description_id" class="form-label">ToDo Description</label>
+                <textarea class="form-control" id="todo_description_id" rows="3" name="todo_description" placeholder="Description ..."></textarea>
                 
               </div>
               <div class="col-12">
                 <button class="btn btn-primary" type="submit">Submit</button>
               </div>
             </div>
+          </form>
+
           </div>
 
       </div>
