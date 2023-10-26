@@ -17,7 +17,7 @@ class Employee:
         return f"name = {self.name}, age = {self.age}, salary = {self.salary}"
     
     def work(self):
-        print(f"{self.name} is working...") 
+        print(f"{self.name} is working...")
 
 class SoftwareEngineer(Employee):
     
@@ -31,10 +31,16 @@ class SoftwareEngineer(Employee):
     def debug(self):
         print(f'{self.name} is debugging...')
 
+    def work(self): # overriding methods with same name of method 
+        print(f"{self.name} is coding...")
+
 class Designer(Employee):
     
     def draw(self):
         print(f"{self.name} is drawing...")
+
+    def work(self): # overriding methods
+        print(f"{self.name} is designing...")
 
 
 se = SoftwareEngineer("ashwin", 28, 16800, "Junior")
