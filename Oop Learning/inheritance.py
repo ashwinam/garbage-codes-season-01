@@ -31,7 +31,7 @@ class SoftwareEngineer(Employee):
     def debug(self):
         print(f'{self.name} is debugging...')
 
-    def work(self): # overriding methods with same name of method 
+    def work(self): # overriding methods with same name of method.
         print(f"{self.name} is coding...")
 
 class Designer(Employee):
