@@ -44,12 +44,21 @@ class Designer(Employee):
 
 
 se = SoftwareEngineer("ashwin", 28, 16800, "Junior")
-print(se)
-se.work()
-se.debug()
+# print(se)
+# se.work()
+# se.debug()
 
 
 d = Designer("Vraj", 21, 10000)
-print(d)
-d.work()
-d.draw()
+# print(d)
+# d.work()
+# d.draw()
+
+
+# Polymorphism (many forms)
+
+employees = [SoftwareEngineer("ashwin", 28, 16800, "Junior"), SoftwareEngineer("akash", 30, 33000, "Senior"),Designer("Vraj", 21, 10000)]
+
+for employee in employees:
+    employee.work()
+
