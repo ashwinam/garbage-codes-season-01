@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic import CreateView, ListView
 from .models import ToDoTbl
+from .forms import ToDoForm
 
 # Create your views here.
 
@@ -13,12 +14,13 @@ class ToDoView(ListView):
     context_object_name = "objects"
 
     def post(self, *args, **kwargs):
-        todo_name = self.request.POST.get('todo_name', None)
-        todo_desc = self.request.POST.get('todo_description', None)
         
         # Object creation.
-        obj = ToDoTbl(todo_name=todo_name, todo_description=todo_desc)
-        obj.save()
+        form = ToDoForm(self.request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
 
         queryset = self.model.objects.all()
 
