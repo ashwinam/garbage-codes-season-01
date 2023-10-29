@@ -1,5 +1,5 @@
 from typing import Any
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
 from .models import ToDoTbl
@@ -25,6 +25,7 @@ class ToDoView(ListView):
 
     def post(self, *args, **kwargs):
         action = self.request.POST.get('action', None)
+        todo_id = self.request.POST.get('todo_id', None)
 
         if action == 'create_todo':
             # Object creation.
@@ -37,5 +38,19 @@ class ToDoView(ListView):
             queryset = self.model.objects.all()
 
             return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm()})
+        elif action == 'fetch_todo':
+            if todo_id:
+                obj = get_object_or_404(ToDoTbl, pk=todo_id)
+                context = {
+                    'todo_id': obj.todo_id,
+                    'todo_name': obj.todo_name,
+                    'todo_description': obj.todo_description,
+                    'action': 'edit_todo',
+                    'form': ToDoForm(instance=obj),
+                    'objects': ToDoTbl.objects.all()
+                }
 
+            return render(self.request, 'todo/todo.html', context=context)
+        else:
+            return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
     

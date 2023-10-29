@@ -12,20 +12,25 @@
                </div>
                <form action="{% url 'todos' %}" method="post">
                 {% csrf_token %}
-                <input type="hidden" name="action" value="create_todo">
-            <div class="card-body">
-              <div class="mb-3">
-                <label for="todo_name_id" class="form-label">ToDo Name</label>
-                {{ form.todo_name }}
-              </div>
-              <div class="mb-3">
-                <label for="todo_description_id" class="form-label">ToDo Description</label>
-                {{ form.todo_description }}              
-              </div>
-              <div class="col-12">
-                <button class="btn btn-primary" type="submit">Submit</button>
-              </div>
-            </div>
+                {% if action == 'edit_todo' %}
+                  <input type="hidden" name="action" value="{{action}}">
+                  <input type="hidden" name="todo_id" value="{{todo_id}}">
+                {% else %}
+                  <input type="hidden" name="action" value="create_todo">
+                {% endif %}
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label for="todo_name_id" class="form-label">ToDo Name</label>
+                    {{ form.todo_name }}
+                  </div>
+                  <div class="mb-3">
+                    <label for="todo_description_id" class="form-label">ToDo Description</label>
+                    {{ form.todo_description }}              
+                  </div>
+                  <div class="col-12">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                  </div>
+                </div>
           </form>
 
           </div>
@@ -56,12 +61,22 @@
                         <td>{{ object.todo_description }}</td>
                         <td>{{ object.status }}</td>
                         <td>
-                            <span class="px-1 cursor-pointer">
+                          <form action="{% url 'todos' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="fetch_todo">
+                            <input type="hidden" name="todo_id" value="{{ object.todo_id }}">
+                            <button type="submit" class="px-1 cursor-pointer">
                                 <i class="bi bi-pencil-square"></i>
+                            </button>
+                          </form>
+                          <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="delete_todo">
+                            <input type="hidden" name="todo_id" value="{{ object.todo_id }}">
+                              <span class="px-1 cursor-pointer">
+                                <i class="bi bi-trash"></i>
                             </span>
-                         <span class="px-1 cursor-pointer">
-                            <i class="bi bi-trash"></i>
-                        </span>
+                        </form>
                         </td>
                       </tr>
                       {% endfor %}
