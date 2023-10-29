@@ -19,22 +19,23 @@ class ToDoView(ListView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         try:
             kwargs['form'] = ToDoForm()
-            print(kwargs['form'])
         except Exception as e:
             print(e, 'Errorrrr')
         return super(ToDoView, self).get_context_data(**kwargs)
 
     def post(self, *args, **kwargs):
-        
-        # Object creation.
-        form = ToDoForm(self.request.POST)
-        if form.is_valid():
-            form.save()
-        else:
-            print(form.errors)
+        action = self.request.POST.get('action', None)
 
-        queryset = self.model.objects.all()
+        if action == 'create_todo':
+            # Object creation.
+            form = ToDoForm(self.request.POST)
+            if form.is_valid():
+                form.save()
+            else:
+                print(form.errors)
 
-        return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm()})
+            queryset = self.model.objects.all()
+
+            return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm()})
 
     

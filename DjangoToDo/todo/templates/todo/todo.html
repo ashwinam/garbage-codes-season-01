@@ -12,6 +12,7 @@
                </div>
                <form action="{% url 'todos' %}" method="post">
                 {% csrf_token %}
+                <input type="hidden" name="action" value="create_todo">
             <div class="card-body">
               <div class="mb-3">
                 <label for="todo_name_id" class="form-label">ToDo Name</label>
@@ -19,7 +20,7 @@
               </div>
               <div class="mb-3">
                 <label for="todo_description_id" class="form-label">ToDo Description</label>
-                {{ form.todo_description }}                
+                {{ form.todo_description }}              
               </div>
               <div class="col-12">
                 <button class="btn btn-primary" type="submit">Submit</button>
