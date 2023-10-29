@@ -26,8 +26,11 @@ class ToDoView(ListView):
     def post(self, *args, **kwargs):
         action = self.request.POST.get('action', None)
         todo_id = self.request.POST.get('todo_id', None)
-        obj = get_object_or_404(ToDoTbl, pk=todo_id)
-        
+        if todo_id:
+            obj = get_object_or_404(ToDoTbl, pk=todo_id)
+        print(action, '--')
+
+
         if action == 'create_todo':
             # Object creation.
             form = ToDoForm(self.request.POST)
@@ -60,6 +63,12 @@ class ToDoView(ListView):
                 else:
                     print(form.errors)
                     return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
+        elif action == 'delete_todo':
+            if obj:
+                obj.delete()
+                return render(self.request, self.template_name, {'objects': ToDoTbl.objects.all(), 'form': self.form_class()})
+            else:
+                return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
         else:
             return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
     

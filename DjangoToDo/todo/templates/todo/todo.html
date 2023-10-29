@@ -69,13 +69,13 @@
                                 <i class="bi bi-pencil-square"></i>
                             </button>
                           </form>
-                          <form action="" method="post">
+                          <form action="{% url 'todos' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="action" value="delete_todo">
                             <input type="hidden" name="todo_id" value="{{ object.todo_id }}">
-                              <span class="px-1 cursor-pointer">
+                              <button type="submit" class="px-1 cursor-pointer">
                                 <i class="bi bi-trash"></i>
-                            </span>
+                            </button>
                         </form>
                         </td>
                       </tr>
