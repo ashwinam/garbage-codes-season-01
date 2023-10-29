@@ -26,7 +26,8 @@ class ToDoView(ListView):
     def post(self, *args, **kwargs):
         action = self.request.POST.get('action', None)
         todo_id = self.request.POST.get('todo_id', None)
-
+        obj = get_object_or_404(ToDoTbl, pk=todo_id)
+        
         if action == 'create_todo':
             # Object creation.
             form = ToDoForm(self.request.POST)
@@ -39,8 +40,7 @@ class ToDoView(ListView):
 
             return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm()})
         elif action == 'fetch_todo':
-            if todo_id:
-                obj = get_object_or_404(ToDoTbl, pk=todo_id)
+            if obj:
                 context = {
                     'todo_id': obj.todo_id,
                     'todo_name': obj.todo_name,
@@ -51,6 +51,15 @@ class ToDoView(ListView):
                 }
 
             return render(self.request, 'todo/todo.html', context=context)
+        elif action == 'edit_todo':
+            if obj:
+                form = ToDoForm(data=self.request.POST, instance=obj)
+                if form.is_valid():
+                    form.save()
+                    return render(self.request, self.template_name, {'objects': ToDoTbl.objects.all(), 'form': self.form_class()})
+                else:
+                    print(form.errors)
+                    return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
         else:
             return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
     
