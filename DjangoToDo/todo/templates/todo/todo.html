@@ -2,6 +2,13 @@
 
 {% block doc_title %}ToDo | Homepage{% endblock doc_title %}
 
+{% block style %}
+  .custom_btn_class{
+    border: none;
+    background-color: white;
+  }
+{% endblock style %}
+
 {% block content %}
 <div class="mx-3 mt-5">
     <div class="row align-items-start">
@@ -28,7 +35,7 @@
                     {{ form.todo_description }}              
                   </div>
                   <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit">{% if action == 'edit_todo' %} Update {% else %} Submit {% endif %}</button>
                   </div>
                 </div>
           </form>
@@ -61,22 +68,28 @@
                         <td>{{ object.todo_description }}</td>
                         <td>{{ object.status }}</td>
                         <td>
+                          <div class="d-flex">
+                          <div class="px-1">
                           <form action="{% url 'todos' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="action" value="fetch_todo">
                             <input type="hidden" name="todo_id" value="{{ object.todo_id }}">
-                            <button type="submit" class="px-1 cursor-pointer">
+                            <button type="submit" class="px-1 cursor-pointer custom_btn_class">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
                           </form>
+                        </div>
+                          <div class="">
                           <form action="{% url 'todos' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="action" value="delete_todo">
                             <input type="hidden" name="todo_id" value="{{ object.todo_id }}">
-                              <button type="submit" class="px-1 cursor-pointer">
+                              <button type="submit" class="px-1 cursor-pointer custom_btn_class">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>
+                        </div>
+                      </div>
                         </td>
                       </tr>
                       {% endfor %}
