@@ -26,6 +26,15 @@
                   <input type="hidden" name="action" value="create_todo">
                 {% endif %}
                 <div class="card-body">
+                  {% comment %} Alert Message {% endcomment %}
+                  {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{% if message.tag == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert" id="myAlert">
+                      {{ message }}
+                    </div>
+                    {% endfor %}
+                  {% endif %}
+                  {% comment %} End alert message {% endcomment %}
                   <div class="mb-3">
                     <label for="todo_name_id" class="form-label">ToDo Name</label>
                     {{ form.todo_name }}
@@ -101,3 +110,22 @@
     </div>
 </div>
 {% endblock content %}
+
+{% block jsscript %}
+<script>
+
+  function removeAlert() {
+    var alert = document.getElementById('myAlert');
+    
+    if (alert) {
+      setTimeout(function() {
+        alert.style.display = 'none';
+      }, 5000); // 5000 milliseconds = 5 seconds
+    }
+  }
+  
+  // Call the function to remove the alert
+  removeAlert();
+
+</script>
+{% endblock jsscript %}

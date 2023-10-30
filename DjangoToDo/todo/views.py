@@ -1,4 +1,5 @@
 from typing import Any
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
@@ -28,7 +29,6 @@ class ToDoView(ListView):
         todo_id = self.request.POST.get('todo_id', None)
         if todo_id:
             obj = get_object_or_404(ToDoTbl, pk=todo_id)
-        print(action, '--')
 
 
         if action == 'create_todo':
@@ -36,8 +36,10 @@ class ToDoView(ListView):
             form = ToDoForm(self.request.POST)
             if form.is_valid():
                 form.save()
+                messages.success(self.request, 'ToDo added successfully')
             else:
                 print(form.errors)
+                messages.error(self.request, form.errors)
 
             queryset = self.model.objects.all()
 
