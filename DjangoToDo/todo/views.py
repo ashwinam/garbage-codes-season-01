@@ -61,13 +61,18 @@ class ToDoView(ListView):
                 form = ToDoForm(data=self.request.POST, instance=obj)
                 if form.is_valid():
                     form.save()
+
+                    messages.success(self.request, 'ToDo updated successfully.')
+
                     return render(self.request, self.template_name, {'objects': ToDoTbl.objects.all(), 'form': self.form_class()})
                 else:
                     print(form.errors)
+                    messages.error(self.request, 'Something Went wrong.')
                     return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
         elif action == 'delete_todo':
             if obj:
                 obj.delete()
+                messages.success(self.request, 'ToDo has been deleted successfully.')
                 return render(self.request, self.template_name, {'objects': ToDoTbl.objects.all(), 'form': self.form_class()})
             else:
                 return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
