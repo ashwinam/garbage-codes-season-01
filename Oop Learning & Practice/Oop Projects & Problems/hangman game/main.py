@@ -6,14 +6,22 @@ class Hangman:
         self.name = name
         self.word_list = ["Apple", "Bicycle", "Elephant", "Sunshine", "Guitar", "Rainbow",
                             "Butterfly", "Mountain", "Whisper", "Ocean", "Chocolate", "Universe", "Adventure", "Symphony", "Firefly", "Serendipity", "Harmony", "Tangerine", "Pillow", "Lighthouse"]
-        self.__attempt = 6
+        self.__attempt = 6 # limited number of attempts
 
-    def select_random_word(self):
+    def __str__(self) -> str:
+        return f"Hello {self.name}, Welcome to the Hangman!"
+    
+    def select_random_word(self): # selecting random word
         random_word = random.choice(self.word_list)
         return random_word
     
-    def __str__(self) -> str:
-        return f"Hello {self.name}, Welcome to the Hangman!"
+    def setup_game_board(self):
+        word = self.select_random_word()
+        print(word)
+        word_len = len(word)
+        underscores = '_ ' * word_len
+        return underscores
+    
 
 
 class Word:
@@ -21,4 +29,4 @@ class Word:
 
 if __name__ == '__main__':
     test = Hangman('ashwin')
-    test.select_random_word()
+    print(test.setup_game_board())
