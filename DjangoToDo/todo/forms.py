@@ -1,3 +1,4 @@
+from typing import Any
 from django import forms
 from .models import ToDoTbl
 
@@ -23,12 +24,6 @@ class ToDoForm(forms.ModelForm):
             })
         }
     
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(self, *args, **kwargs)
-    #     self.fields['todo_name'].widget.attrs.update(
-    #         {'class': 'form-control', 
-    #          'placeholder':"ToDo ...", 
-    #          'id': "todo_name_id",
-    #          'name': 'todo_name'
-    #          }
-    #         )
+    def clean(self) -> dict[str, Any]:
+        print(super().clean())
+        return super().clean()
