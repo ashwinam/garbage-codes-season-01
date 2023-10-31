@@ -37,13 +37,18 @@ class ToDoView(ListView):
             if form.is_valid():
                 form.save()
                 messages.success(self.request, 'ToDo added successfully')
+                queryset = self.model.objects.all()
+
+                return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm()})
             else:
-                print(form.errors)
-                messages.error(self.request, form.errors)
+                error_msg = ''
+                for field, errors in form.errors.items():
+                    error_msg += f'{field}: {",".join(errors)}'
+                messages.error(self.request, error_msg)
+                queryset = self.model.objects.all()
 
-            queryset = self.model.objects.all()
-
-            return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm()})
+                return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm()})
+            
         elif action == 'fetch_todo':
             if obj:
                 context = {
@@ -58,7 +63,7 @@ class ToDoView(ListView):
             return render(self.request, 'todo/todo.html', context=context)
         elif action == 'edit_todo':
             if obj:
-                form = ToDoForm(data=self.request.POST, instance=obj)
+                form = ToDoForm(data=self.request.POST, instance=obj, todo_id=obj.todo_id)
                 if form.is_valid():
                     form.save()
 

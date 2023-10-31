@@ -1,4 +1,5 @@
 from typing import Any
+from django.core.exceptions import ValidationError
 from django import forms
 from .models import ToDoTbl
 
@@ -24,6 +25,10 @@ class ToDoForm(forms.ModelForm):
             })
         }
     
-    def clean(self) -> dict[str, Any]:
-        print(super().clean())
-        return super().clean()
+    
+    def clean_todo_name(self):
+        data = self.cleaned_data.get('todo_name', None)
+        if data:
+            if ToDoTbl.objects.filter(todo_name=data).exists():
+                raise ValidationError('%(value)s -- todo is already exists, please change the name', params={'value': data})
+        return data
