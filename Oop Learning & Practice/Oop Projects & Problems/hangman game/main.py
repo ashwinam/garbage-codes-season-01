@@ -1,7 +1,9 @@
 # Welcome to hangman @development
 import random
 
+
 class Hangman:
+
     def __init__(self, name):
         self.name = name
         self.word_list = ["Apple", "Bicycle", "Elephant", "Sunshine", "Guitar", "Rainbow",
@@ -11,12 +13,13 @@ class Hangman:
     def __str__(self) -> str:
         return f"Hello {self.name}, Welcome to the Hangman!"
     
-    def select_random_word(self): # selecting random word
+    def return_random_word(self): # selecting random word
+        random.seed(20)
         random_word = random.choice(self.word_list)
         return random_word
     
     def setup_game_board(self):
-        word = self.select_random_word()
+        word = self.return_random_word()
         print(word)
         word_len = len(word)
         underscores = '_ ' * word_len
@@ -29,4 +32,5 @@ class Word:
 
 if __name__ == '__main__':
     test = Hangman('ashwin')
+    print(test.return_random_word())
     print(test.setup_game_board())
