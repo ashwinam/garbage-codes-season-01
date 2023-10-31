@@ -25,10 +25,20 @@ class ToDoForm(forms.ModelForm):
             })
         }
     
+    def __init__(self,*args,**kwargs):
+        data = kwargs.get('data')
+        self.todo_id = ''
+        if data:   
+            self.todo_id = data.get('todo_id', None)
+        super(ToDoForm,self).__init__(*args,**kwargs)
     
     def clean_todo_name(self):
         data = self.cleaned_data.get('todo_name', None)
-        if data:
+        print(self.todo_id)
+        if self.todo_id:
+            if ToDoTbl.objects.filter(todo_name=data).exclude(todo_id=self.todo_id).exists():
+                raise ValidationError('%(value)s -- todo is already exists, please change the name', params={'value': data})
+        else:
             if ToDoTbl.objects.filter(todo_name=data).exists():
                 raise ValidationError('%(value)s -- todo is already exists, please change the name', params={'value': data})
         return data

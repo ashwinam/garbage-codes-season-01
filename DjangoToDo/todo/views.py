@@ -47,7 +47,7 @@ class ToDoView(ListView):
                 messages.error(self.request, error_msg)
                 queryset = self.model.objects.all()
 
-                return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm()})
+                return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm(self.request.POST)})
             
         elif action == 'fetch_todo':
             if obj:
@@ -63,7 +63,7 @@ class ToDoView(ListView):
             return render(self.request, 'todo/todo.html', context=context)
         elif action == 'edit_todo':
             if obj:
-                form = ToDoForm(data=self.request.POST, instance=obj, todo_id=obj.todo_id)
+                form = ToDoForm(data=self.request.POST, instance=obj)
                 if form.is_valid():
                     form.save()
 
@@ -71,9 +71,11 @@ class ToDoView(ListView):
 
                     return render(self.request, self.template_name, {'objects': ToDoTbl.objects.all(), 'form': self.form_class()})
                 else:
-                    print(form.errors)
-                    messages.error(self.request, 'Something Went wrong.')
-                    return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
+                    error_msg = ''
+                    for field, errors in form.errors.items():
+                        error_msg += f'{field}: {",".join(errors)}'
+                    messages.error(self.request, error_msg)
+                    return render(self.request, 'todo/todo.html', {'objects': ToDoTbl.objects.all(), 'form': ToDoForm(self.request.POST)})
         elif action == 'delete_todo':
             if obj:
                 obj.delete()
