@@ -14,13 +14,11 @@ class Hangman:
         return f"Hello {self.name}, Welcome to the Hangman!"
     
     def return_random_word(self): # selecting random word
-        random.seed(20)
         random_word = random.choice(self.word_list)
         return random_word
     
     def setup_game_board(self):
         word = self.return_random_word()
-        print(word)
         word_len = len(word)
         underscores = '_ ' * word_len
         return underscores
