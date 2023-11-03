@@ -11,13 +11,14 @@
 
     <title>{% block doc_title %}Hello, world!{% endblock doc_title %}</title>
     <style>
-      {% block style %}
+      
         body{
             background-color: #dee1e6;
         }
         .cursor-pointer {
             cursor: pointer;
         }
+        {% block style %}
         {% endblock style %}
     </style>
   </head>
