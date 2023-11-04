@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block style %}
+
+.custom_width{
+    width: 400px;
+}
+
+.c_height{
+    height: 100vh;
+}
+
+{% endblock style %}
+
+{% block content %}
+<div class="container d-flex align-item-center justify-content-center">
+<div class="card shadow p-3 mb-5 mt-3 bg-body rounded-3 custom_width ">
+    <div class="card-header">
+        Login
+       </div>
+        <form method="post" action="{% url "login" %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="id_username" class="form-label">Username</label>
+          {{ form.username }}
+          <div id="emailHelp" class="form-text">We'll never share your data with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="id_password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password" id="id_password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</div>
+</div>
+
+{% endblock content %}
