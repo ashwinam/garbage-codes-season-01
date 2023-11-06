@@ -25,6 +25,5 @@ class LoginForm(forms.ModelForm):
                 })}
         
     def __init__(self, *args, **kwargs):
-        print(kwargs, '--')
         self.request = kwargs.pop('request')
         super().__init__(*args, **kwargs)
