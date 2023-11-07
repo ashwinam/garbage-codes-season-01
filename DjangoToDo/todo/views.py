@@ -1,5 +1,6 @@
 from typing import Any
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
@@ -11,7 +12,7 @@ from .forms import ToDoForm
 def index(request):
     return render(request, 'base.html')
 
-class ToDoView(ListView):
+class ToDoView(LoginRequiredMixin, ListView):
     model = ToDoTbl
     template_name = 'todo/todo.html'
     context_object_name = "objects"

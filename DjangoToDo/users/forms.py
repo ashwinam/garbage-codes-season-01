@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 
 class LoginForm(forms.ModelForm):
     class Meta:
@@ -25,5 +26,5 @@ class LoginForm(forms.ModelForm):
                 })}
         
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request')
+        # self.request = kwargs.pop('request')
         super().__init__(*args, **kwargs)

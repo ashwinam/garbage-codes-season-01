@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% block doc_title %}ToDo | Login{% endblock doc_title %}
 
 {% block style %}
 
@@ -23,8 +23,8 @@
         {% csrf_token %}
         <div class="mb-3">
           <label for="id_username" class="form-label">Username</label>
-          {{ form.username }}
-          <div id="emailHelp" class="form-text">We'll never share your data with anyone else.</div>
+          <input type="text" class="form-control" name="username" id="id_username" required>
+          <div id="usernameHelp" class="form-text">We'll never share your data with anyone else.</div>
         </div>
         <div class="mb-3">
           <label for="id_password" class="form-label">Password</label>
