@@ -37,8 +37,8 @@ class ToDoForm(forms.ModelForm):
         print(self.todo_id)
         if self.todo_id:
             if ToDoTbl.objects.filter(todo_name=data).exclude(todo_id=self.todo_id).exists():
-                raise ValidationError('%(value)s -- todo is already exists, please change the name', params={'value': data})
+                raise ValidationError('%(value)s is already exists, please change the name', params={'value': data})
         else:
             if ToDoTbl.objects.filter(todo_name=data).exists():
-                raise ValidationError('%(value)s -- todo is already exists, please change the name', params={'value': data})
+                raise ValidationError('%(value)s is already exists, please change the name', params={'value': data})
         return data
