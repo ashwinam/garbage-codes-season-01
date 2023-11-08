@@ -4,6 +4,6 @@ from . import views
 # URLS
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name='home'),
     path('todo/', views.ToDoView.as_view(), name='todos'),
 ]
