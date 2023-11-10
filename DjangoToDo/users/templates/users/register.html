@@ -5,8 +5,15 @@
 
 <form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="register">
+    {{ form.username.label_tag }}
+    {{ form.username }}
+    {{ form.email.label_tag }}
+    {{ form.email }}
+    {{ form.password1.label_tag }}
+    {{ form.password1 }}
+    {{ form.password2.label_tag }}
+    {{ form.password2 }}
+    <input type="submit" class="btn btn-primary mt-1" value="Register">
 </form>
 
 {% endblock content %}

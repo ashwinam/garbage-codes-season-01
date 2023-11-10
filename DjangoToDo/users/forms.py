@@ -5,8 +5,41 @@ from django.contrib.auth.forms import UserCreationForm
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
-        fields = UserCreationForm.Meta.fields + ("email",)
-        print(fields, '--')
+        fields = UserCreationForm.Meta.fields + ("email","password1", 'password2')
+        UserCreationForm.base_fields['password1'].widget.attrs['class'] = 'form-control'
+        UserCreationForm.base_fields['password1'].widget.attrs['placeholder'] = 'Enter the password'
+        UserCreationForm.base_fields['password2'].widget.attrs['class'] = 'form-control'
+        UserCreationForm.base_fields['password2'].widget.attrs['placeholder'] = 'Re-enter your password'
+        print(UserCreationForm.base_fields['password1'].widget.attrs, 'fields -- ')
+
+        widgets = {
+            'username': forms.TextInput
+            (attrs={
+                'type': 'text',
+                'class': 'form-control',
+                'placeholder':"Please, enter a username.",
+        }),
+            'email': forms.EmailInput
+            (attrs={
+                'type': 'email',
+                'class': 'form-control',
+                'placeholder':"Please, enter a Email Address.",
+        }),
+            'password1': forms.PasswordInput
+            (attrs={
+                'type': 'password',
+                'name': 'password1',
+                'class': 'form-control',
+                'placeholder':"Please, enter a password.",
+        }),
+            'password2': forms.PasswordInput
+            (attrs={
+                'type': 'password',
+                'name': 'password2',
+                'class': 'form-control',
+                'placeholder':"Please, enter a password again.",
+        }),
+        }
 
 
 class LoginForm(forms.ModelForm):
