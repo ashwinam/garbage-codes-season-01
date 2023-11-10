@@ -1,19 +1,36 @@
 {% extends "base.html" %}
 {% block doc_title %}ToDo | Register{% endblock doc_title %}
 
+{% block style %}
+.custom_width{
+    width: 400px;
+}
+{% endblock style %}
+
 {% block content %}
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.username.label_tag }}
-    {{ form.username }}
-    {{ form.email.label_tag }}
-    {{ form.email }}
-    {{ form.password1.label_tag }}
-    {{ form.password1 }}
-    {{ form.password2.label_tag }}
-    {{ form.password2 }}
-    <input type="submit" class="btn btn-primary mt-1" value="Register">
-</form>
+
+
+<div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="">
+  <div class="card shadow p-3 mb-5 mt-3 bg-body rounded-3 custom_width ">
+      <div class="card-header">
+          Register User
+         </div>
+         <form action="" method="post">
+            {% csrf_token %}
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            <input type="submit" class="btn btn-primary mt-1" value="Register">
+        </form>
+  </div>
+  </div>
+  </div>
 
 {% endblock content %}
