@@ -3,14 +3,14 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, TemplateView
 from .models import ToDoTbl
 from .forms import ToDoForm
 
 # Create your views here.
 
-def index(request):
-    return render(request, 'base.html')
+class index(TemplateView):
+    template_name = 'base.html'
 
 class ToDoView(LoginRequiredMixin, ListView):
     model = ToDoTbl
