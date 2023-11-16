@@ -39,7 +39,7 @@
               
               <li class="nav-item dropdown me-2">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-person-circle"></i>
+                  <i class="bi bi-person-circle"></i><span class="mx-1">{{ request.user }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-start">
                   <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>

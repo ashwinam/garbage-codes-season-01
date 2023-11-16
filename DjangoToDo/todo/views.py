@@ -38,10 +38,10 @@ class ToDoView(LoginRequiredMixin, ListView):
             form = ToDoForm(self.request.POST)
             if form.is_valid():
                 form = form.save(commit=False)
-                form.add_by = self.request.user.id
+                form.add_by = self.request.user
                 form.save()
                 messages.success(self.request, 'ToDo added successfully')
-                queryset = self.model.objects.all()
+                queryset = self.model.objects.filter(add_by=self.request.user)
 
                 return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm()})
             else:
@@ -49,7 +49,7 @@ class ToDoView(LoginRequiredMixin, ListView):
                 for field, errors in form.errors.items():
                     error_msg += f'{field}: {",".join(errors)}'
                 messages.error(self.request, error_msg)
-                queryset = self.model.objects.all()
+                queryset = self.model.objects.filter(add_by=self.request.user)
 
                 return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm(self.request.POST)})
             
@@ -61,7 +61,7 @@ class ToDoView(LoginRequiredMixin, ListView):
                     'todo_description': obj.todo_description,
                     'action': 'edit_todo',
                     'form': ToDoForm(instance=obj),
-                    'objects': ToDoTbl.objects.all()
+                    'objects': self.model.objects.filter(add_by=self.request.user)
                 }
 
             return render(self.request, 'todo/todo.html', context=context)
@@ -73,18 +73,18 @@ class ToDoView(LoginRequiredMixin, ListView):
 
                     messages.success(self.request, 'ToDo updated successfully.')
 
-                    return render(self.request, self.template_name, {'objects': ToDoTbl.objects.all(), 'form': self.form_class()})
+                    return render(self.request, self.template_name, {'objects': self.model.objects.filter(add_by=self.request.user), 'form': self.form_class()})
                 else:
                     error_msg = ''
                     for field, errors in form.errors.items():
                         error_msg += f'{field}: {",".join(errors)}'
                     messages.error(self.request, error_msg)
-                    return render(self.request, 'todo/todo.html', {'objects': ToDoTbl.objects.all(), 'form': ToDoForm(self.request.POST)})
+                    return render(self.request, 'todo/todo.html', {'objects': self.model.objects.filter(add_by=self.request.user), 'form': ToDoForm(self.request.POST), 'action': 'edit_todo', 'todo_id': obj.todo_id})
         elif action == 'delete_todo':
             if obj:
                 obj.delete()
                 messages.success(self.request, 'ToDo has been deleted successfully.')
-                return render(self.request, self.template_name, {'objects': ToDoTbl.objects.all(), 'form': self.form_class()})
+                return render(self.request, self.template_name, {'objects': self.model.objects.filter(add_by=self.request.user), 'form': self.form_class()})
             else:
                 return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
         else:
