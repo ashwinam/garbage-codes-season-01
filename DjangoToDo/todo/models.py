@@ -13,6 +13,7 @@ class ToDoTbl(models.Model):
     todo_name = models.CharField(max_length=100)
     todo_description = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS, default='In Progress')
+    add_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
 
     def __str__(self) -> str:
