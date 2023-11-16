@@ -28,11 +28,10 @@ class ToDoView(LoginRequiredMixin, ListView):
                 objects = self.model.objects.filter(add_by=self.request.user.id, todo_name__icontains=search_inp)
                 kwargs['search_inp'] = search_inp
             kwargs['objects'] = objects
+            
         except Exception as e:
             print(e, 'Errorrrr')
         
-        
-
         return super(ToDoView, self).get_context_data(**kwargs)
 
     def post(self, *args, **kwargs):
