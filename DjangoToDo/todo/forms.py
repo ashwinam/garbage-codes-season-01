@@ -34,7 +34,6 @@ class ToDoForm(forms.ModelForm):
     
     def clean_todo_name(self):
         data = self.cleaned_data.get('todo_name', None)
-        print(self.todo_id)
         if self.todo_id:
             if ToDoTbl.objects.filter(todo_name=data).exclude(todo_id=self.todo_id).exists():
                 raise ValidationError('%(value)s is already exists, please change the name', params={'value': data})

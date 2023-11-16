@@ -10,7 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
         UserCreationForm.base_fields['password1'].widget.attrs['placeholder'] = 'Enter the password'
         UserCreationForm.base_fields['password2'].widget.attrs['class'] = 'form-control'
         UserCreationForm.base_fields['password2'].widget.attrs['placeholder'] = 'Re-enter your password'
-        print(UserCreationForm.base_fields['password1'].widget.attrs, 'fields -- ')
+        
 
         widgets = {
             'username': forms.TextInput

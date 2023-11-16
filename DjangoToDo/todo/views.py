@@ -37,6 +37,8 @@ class ToDoView(LoginRequiredMixin, ListView):
             # Object creation.
             form = ToDoForm(self.request.POST)
             if form.is_valid():
+                form = form.save(commit=False)
+                form.add_by = self.request.user.id
                 form.save()
                 messages.success(self.request, 'ToDo added successfully')
                 queryset = self.model.objects.all()
