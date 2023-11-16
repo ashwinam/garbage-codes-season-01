@@ -10,32 +10,7 @@
 {% endblock style %}
 
 {% block content %}
-<div class="card mx-3 mt-3 shadow">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'todos' %}">ToDo Nation</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        
-        {% if request.user.is_authenticated %}
-        <ul class="navbar-nav ml-auto mb-2 mb-lg-0" style="margin-left: auto;">
-          
-          <li class="nav-item dropdown me-2">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-start">
-              <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-            </ul>
-          </li>
-        </ul>
-        {% endif %}
-      </div>
-    </div>
-  </nav>
-</div>
+
 <div class="mx-3 mt-5">
     <div class="row align-items-start">
       <div class="col-3">
@@ -159,5 +134,12 @@
   // Call the function to remove the alert
   removeAlert();
 
+
 </script>
+<script>
+  $(document).ready(function(){
+      $('.dropdown-toggle').dropdown();
+  });
+</script>
+
 {% endblock jsscript %}
