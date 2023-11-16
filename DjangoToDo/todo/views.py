@@ -21,6 +21,7 @@ class ToDoView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         try:
             kwargs['form'] = ToDoForm()
+            kwargs['objects'] = self.model.objects.filter(add_by=self.request.user.id)
         except Exception as e:
             print(e, 'Errorrrr')
         return super(ToDoView, self).get_context_data(**kwargs)
