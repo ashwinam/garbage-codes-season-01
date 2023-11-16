@@ -1,7 +1,7 @@
 from typing import Any
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, TemplateView
 from .models import ToDoTbl
@@ -21,9 +21,18 @@ class ToDoView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         try:
             kwargs['form'] = ToDoForm()
-            kwargs['objects'] = self.model.objects.filter(add_by=self.request.user.id)
+            objects = self.model.objects.filter(add_by=self.request.user.id)
+
+            search_inp = self.request.GET.get('search_todo', '').strip()
+            if search_inp:
+                objects = self.model.objects.filter(add_by=self.request.user.id, todo_name__icontains=search_inp)
+                kwargs['search_inp'] = search_inp
+            kwargs['objects'] = objects
         except Exception as e:
             print(e, 'Errorrrr')
+        
+        
+
         return super(ToDoView, self).get_context_data(**kwargs)
 
     def post(self, *args, **kwargs):
