@@ -12,7 +12,7 @@ class ToDoForm(forms.ModelForm):
             'todo_name': forms.TextInput
             (attrs={
                 'class': 'form-control', 
-                'placeholder':"ToDo ...", 
+                'placeholder':"Name ...", 
                 'id': "todo_name_id",
                 'name': 'todo_name'
                 }),
