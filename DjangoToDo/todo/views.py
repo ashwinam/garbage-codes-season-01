@@ -1,6 +1,7 @@
 from typing import Any
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, TemplateView
@@ -17,6 +18,7 @@ class ToDoView(LoginRequiredMixin, ListView):
     template_name = 'todo/todo.html'
     context_object_name = "objects"
     form_class = ToDoForm
+    paginate_by = 1
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         try:
@@ -27,7 +29,8 @@ class ToDoView(LoginRequiredMixin, ListView):
             if search_inp:
                 objects = self.model.objects.filter(add_by=self.request.user.id, todo_name__icontains=search_inp)
                 kwargs['search_inp'] = search_inp
-            kwargs['objects'] = objects
+            paginate = Paginator(objects, 1)
+            kwargs['objects'] = paginate.get_page(2)
             
         except Exception as e:
             print(e, 'Errorrrr')
