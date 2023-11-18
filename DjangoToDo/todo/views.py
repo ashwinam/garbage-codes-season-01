@@ -16,9 +16,7 @@ class index(TemplateView):
 class ToDoView(LoginRequiredMixin, ListView):
     model = ToDoTbl
     template_name = 'todo/todo.html'
-    context_object_name = "objects"
     form_class = ToDoForm
-    paginate_by = 1
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         try:
@@ -30,7 +28,7 @@ class ToDoView(LoginRequiredMixin, ListView):
                 objects = self.model.objects.filter(add_by=self.request.user.id, todo_name__icontains=search_inp)
                 kwargs['search_inp'] = search_inp
             paginate = Paginator(objects, 1)
-            kwargs['objects'] = paginate.get_page(2)
+            kwargs['objects'] = paginate.get_page(1)
             
         except Exception as e:
             print(e, 'Errorrrr')
