@@ -52,7 +52,9 @@ class ToDoView(LoginRequiredMixin, ListView):
                 messages.success(self.request, 'ToDo added successfully')
                 queryset = self.model.objects.filter(add_by=self.request.user)
 
-                return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm()})
+                paginate = Paginator(queryset, 1)
+
+                return render(self.request, 'todo/todo.html', {'objects': paginate.get_page(1), 'form': ToDoForm()})
             else:
                 error_msg = ''
                 for field, errors in form.errors.items():
@@ -60,17 +62,21 @@ class ToDoView(LoginRequiredMixin, ListView):
                 messages.error(self.request, error_msg)
                 queryset = self.model.objects.filter(add_by=self.request.user)
 
-                return render(self.request, 'todo/todo.html', {'objects': queryset, 'form': ToDoForm(self.request.POST)})
+                paginate = Paginator(queryset, 1)
+
+                return render(self.request, 'todo/todo.html', {'objects': paginate.get_page(1), 'form': ToDoForm(self.request.POST)})
             
         elif action == 'fetch_todo':
             if obj:
+                queryset = self.model.objects.filter(add_by=self.request.user)
+                paginate = Paginator(queryset, 1)
                 context = {
                     'todo_id': obj.todo_id,
                     'todo_name': obj.todo_name,
                     'todo_description': obj.todo_description,
                     'action': 'edit_todo',
                     'form': ToDoForm(instance=obj),
-                    'objects': self.model.objects.filter(add_by=self.request.user)
+                    'objects': paginate.get_page(1)
                 }
 
             return render(self.request, 'todo/todo.html', context=context)
@@ -81,19 +87,30 @@ class ToDoView(LoginRequiredMixin, ListView):
                     form.save()
 
                     messages.success(self.request, 'ToDo updated successfully.')
+                    
+                    queryset = self.model.objects.filter(add_by=self.request.user)
+                    paginate = Paginator(queryset, 1)
 
-                    return render(self.request, self.template_name, {'objects': self.model.objects.filter(add_by=self.request.user), 'form': self.form_class()})
+                    return render(self.request, self.template_name, {'objects': paginate.get_page(1), 'form': self.form_class()})
                 else:
                     error_msg = ''
                     for field, errors in form.errors.items():
                         error_msg += f'{field}: {",".join(errors)}'
                     messages.error(self.request, error_msg)
-                    return render(self.request, 'todo/todo.html', {'objects': self.model.objects.filter(add_by=self.request.user), 'form': ToDoForm(self.request.POST), 'action': 'edit_todo', 'todo_id': obj.todo_id})
+
+                    queryset = self.model.objects.filter(add_by=self.request.user)
+                    paginate = Paginator(queryset, 1)
+
+                    return render(self.request, 'todo/todo.html', {'objects': paginate.get_page(1), 'form': ToDoForm(self.request.POST), 'action': 'edit_todo', 'todo_id': obj.todo_id})
         elif action == 'delete_todo':
             if obj:
                 obj.delete()
                 messages.success(self.request, 'ToDo has been deleted successfully.')
-                return render(self.request, self.template_name, {'objects': self.model.objects.filter(add_by=self.request.user), 'form': self.form_class()})
+
+                queryset = self.model.objects.filter(add_by=self.request.user)
+                paginate = Paginator(queryset, 1)
+
+                return render(self.request, self.template_name, {'objects': paginate.get_page(1), 'form': self.form_class()})
             else:
                 return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
         else:
