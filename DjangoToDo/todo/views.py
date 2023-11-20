@@ -17,6 +17,7 @@ class ToDoView(LoginRequiredMixin, ListView):
     model = ToDoTbl
     template_name = 'todo/todo.html'
     form_class = ToDoForm
+    __COUNTS = 3
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         try:
@@ -27,7 +28,7 @@ class ToDoView(LoginRequiredMixin, ListView):
             if search_inp:
                 objects = self.model.objects.filter(add_by=self.request.user.id, todo_name__icontains=search_inp)
                 kwargs['search_inp'] = search_inp
-            paginate = Paginator(objects, 1)
+            paginate = Paginator(objects, self.__COUNTS)
             kwargs['objects'] = paginate.get_page(page)
             kwargs['current_page'] = kwargs['objects'].number
             
@@ -53,7 +54,7 @@ class ToDoView(LoginRequiredMixin, ListView):
                 messages.success(self.request, 'ToDo added successfully')
                 queryset = self.model.objects.filter(add_by=self.request.user)
 
-                paginate = Paginator(queryset, 1)
+                paginate = Paginator(queryset, self.__COUNTS)
 
                 return render(self.request, 'todo/todo.html', {'objects': paginate.get_page(1), 'form': ToDoForm()})
             else:
@@ -63,14 +64,14 @@ class ToDoView(LoginRequiredMixin, ListView):
                 messages.error(self.request, error_msg)
                 queryset = self.model.objects.filter(add_by=self.request.user)
 
-                paginate = Paginator(queryset, 1)
+                paginate = Paginator(queryset, self.__COUNTS)
 
                 return render(self.request, 'todo/todo.html', {'objects': paginate.get_page(1), 'form': ToDoForm(self.request.POST)})
             
         elif action == 'fetch_todo':
             if obj:
                 queryset = self.model.objects.filter(add_by=self.request.user)
-                paginate = Paginator(queryset, 1)
+                paginate = Paginator(queryset, self.__COUNTS)
                 context = {
                     'todo_id': obj.todo_id,
                     'todo_name': obj.todo_name,
@@ -90,7 +91,7 @@ class ToDoView(LoginRequiredMixin, ListView):
                     messages.success(self.request, 'ToDo updated successfully.')
                     
                     queryset = self.model.objects.filter(add_by=self.request.user)
-                    paginate = Paginator(queryset, 1)
+                    paginate = Paginator(queryset, self.__COUNTS)
 
                     return render(self.request, self.template_name, {'objects': paginate.get_page(1), 'form': self.form_class()})
                 else:
@@ -100,7 +101,7 @@ class ToDoView(LoginRequiredMixin, ListView):
                     messages.error(self.request, error_msg)
 
                     queryset = self.model.objects.filter(add_by=self.request.user)
-                    paginate = Paginator(queryset, 1)
+                    paginate = Paginator(queryset, self.__COUNTS)
 
                     return render(self.request, 'todo/todo.html', {'objects': paginate.get_page(1), 'form': ToDoForm(self.request.POST), 'action': 'edit_todo', 'todo_id': obj.todo_id})
         elif action == 'delete_todo':
@@ -109,7 +110,7 @@ class ToDoView(LoginRequiredMixin, ListView):
                 messages.success(self.request, 'ToDo has been deleted successfully.')
 
                 queryset = self.model.objects.filter(add_by=self.request.user)
-                paginate = Paginator(queryset, 1)
+                paginate = Paginator(queryset, self.__COUNTS)
 
                 return render(self.request, self.template_name, {'objects': paginate.get_page(1), 'form': self.form_class()})
             else:
