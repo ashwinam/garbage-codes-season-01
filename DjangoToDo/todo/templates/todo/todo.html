@@ -122,7 +122,7 @@
                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
                       </li> -->
                       {% for pge_num in objects.paginator.page_range %}
-                        <li class="page-item {% if current_page == pge_num %} active {% endif %}" ><a class="page-link" href="{% url 'todos' %}?page={{ pge_num }}">{{pge_num}}</a></li>
+                        <li class="page-item {% if current_page == pge_num %} active {% endif %}" ><a class="page-link" href="{% url 'todos' %}?page={{ pge_num }}{% if search_inp %}&search_todo={{search_inp}}{% endif %}">{{pge_num}}</a></li>
                       {% endfor %}
                       <!-- <li class="page-item">
                         <a class="page-link" href="#">Next</a>
