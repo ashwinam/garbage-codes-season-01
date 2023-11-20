@@ -22,13 +22,14 @@ class ToDoView(LoginRequiredMixin, ListView):
         try:
             kwargs['form'] = ToDoForm()
             objects = self.model.objects.filter(add_by=self.request.user.id)
-
+            page = self.request.GET.get('page', 1)
             search_inp = self.request.GET.get('search_todo', '').strip()
             if search_inp:
                 objects = self.model.objects.filter(add_by=self.request.user.id, todo_name__icontains=search_inp)
                 kwargs['search_inp'] = search_inp
             paginate = Paginator(objects, 1)
-            kwargs['objects'] = paginate.get_page(1)
+            kwargs['objects'] = paginate.get_page(page)
+            kwargs['current_page'] = kwargs['objects'].number
             
         except Exception as e:
             print(e, 'Errorrrr')
