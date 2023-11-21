@@ -3,6 +3,6 @@
 TODO 1:
     Userwise show todos -- Done.
 TODO 2:
-    Searching functionality
+    Searching functionality -- Done
 TODO 3:
-    Pagination functionality
+    Pagination functionality -- Done
