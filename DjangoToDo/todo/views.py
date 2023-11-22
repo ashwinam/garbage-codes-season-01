@@ -49,21 +49,23 @@ class ToDoView(LoginRequiredMixin, ListView):
 
         if action == 'create_todo':
             # Object creation.
-            form = ToDoForm(self.request.POST)
+            self.request.POST = self.request.POST.copy()
+            self.request.POST['user'] = self.request.user
+            form = ToDoForm(data=self.request.POST)
             if form.is_valid():
                 form = form.save(commit=False)
                 form.add_by = self.request.user
                 form.save()
                 messages.success(self.request, 'ToDo added successfully')
 
-                return render(self.request, 'todo/todo.html', {'objects': self.paginator_obj(1), 'form': ToDoForm()})
+                return render(self.request, 'todo/todo.html', {'objects': self.paginator_obj(1), 'form': ToDoForm(), 'current_page': self.paginator_obj(1).number})
             else:
                 error_msg = ''
                 for field, errors in form.errors.items():
                     error_msg += f'{field}: {",".join(errors)}'
                 messages.error(self.request, error_msg)
 
-                return render(self.request, 'todo/todo.html', {'objects': self.paginator_obj(1), 'form': ToDoForm(self.request.POST)})
+                return render(self.request, 'todo/todo.html', {'objects': self.paginator_obj(1), 'form': ToDoForm(self.request.POST), 'current_page': self.paginator_obj(1).number})
             
         elif action == 'fetch_todo':
             if obj:
@@ -73,32 +75,35 @@ class ToDoView(LoginRequiredMixin, ListView):
                     'todo_description': obj.todo_description,
                     'action': 'edit_todo',
                     'form': ToDoForm(instance=obj),
-                    'objects': self.paginator_obj(1)
+                    'objects': self.paginator_obj(1),
+                    'current_page': self.paginator_obj(1).number
                 }
 
             return render(self.request, 'todo/todo.html', context=context)
         elif action == 'edit_todo':
             if obj:
+                self.request.POST = self.request.POST.copy()
+                self.request.POST['user'] = self.request.user
                 form = ToDoForm(data=self.request.POST, instance=obj)
                 if form.is_valid():
                     form.save()
 
                     messages.success(self.request, 'ToDo updated successfully.')
 
-                    return render(self.request, self.template_name, {'objects': self.paginator_obj(1), 'form': self.form_class()})
+                    return render(self.request, self.template_name, {'objects': self.paginator_obj(1), 'form': self.form_class(), 'current_page': self.paginator_obj(1).number})
                 else:
                     error_msg = ''
                     for field, errors in form.errors.items():
                         error_msg += f'{field}: {",".join(errors)}'
                     messages.error(self.request, error_msg)
 
-                    return render(self.request, 'todo/todo.html', {'objects': self.paginator_obj(1), 'form': ToDoForm(self.request.POST), 'action': 'edit_todo', 'todo_id': obj.todo_id})
+                    return render(self.request, 'todo/todo.html', {'objects': self.paginator_obj(1), 'form': ToDoForm(self.request.POST), 'action': 'edit_todo', 'todo_id': obj.todo_id, 'current_page': self.paginator_obj(1).number})
         elif action == 'delete_todo':
             if obj:
                 obj.delete()
                 messages.success(self.request, 'ToDo has been deleted successfully.')
 
-                return render(self.request, self.template_name, {'objects': self.paginator_obj(1), 'form': self.form_class()})
+                return render(self.request, self.template_name, {'objects': self.paginator_obj(1), 'form': self.form_class(), 'current_page': self.paginator_obj(1).number})
             else:
                 return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
         else:
