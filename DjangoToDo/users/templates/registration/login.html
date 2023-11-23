@@ -20,6 +20,11 @@
     <div class="card-header">
         Login
        </div>
+       {% for k,v in form.errors.items %}
+          <div class="alert alert-danger" role="alert" id="myAlert">
+            {{ v }}
+          </div>
+        {% endfor %}
         <form method="post" action="{% url "login" %}">
         {% csrf_token %}
         <div class="mb-3">
@@ -38,3 +43,21 @@
 </div>
 
 {% endblock content %}
+{% block jsscript %}
+<script>
+
+  function removeAlert() {
+    var alert = document.getElementById('myAlert');
+    
+    if (alert) {
+      setTimeout(function() {
+        alert.style.display = 'none';
+      }, 3000); // 5000 milliseconds = 5 seconds
+    }
+  }
+  
+  // Call the function to remove the alert
+  removeAlert();
+</script>
+
+{% endblock jsscript %}
