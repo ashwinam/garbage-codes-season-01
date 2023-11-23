@@ -90,6 +90,7 @@
                         <td>{{ object.todo_description }}</td>
                         <td>{{ object.status }}</td>
                         <td>
+                          {% if object.status == 'In Progress' %}
                           <div class="d-flex">
                           <div class="px-1">
                           <form action="{% url 'todos' %}" method="post">
@@ -112,6 +113,7 @@
                         </form>
                         </div>
                       </div>
+                      {% endif %}
                         </td>
                       </tr>
                       {% empty %}
