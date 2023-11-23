@@ -164,12 +164,21 @@ const checkboxes = document.querySelectorAll('.toggle_status');
 checkboxes.forEach(checkbox => {
   checkbox.addEventListener('change', function() {
 
+    checkboxes.forEach(cb => {
+      cb.disabled = true;
+    });
+
     $.ajax({
       headers: {'X-CSRFToken': '{{ csrf_token }}'},                                                
       url: "{% url 'todos' %}",
       data: {'action': 'change_status', 'id': this.dataset.todo_id},
       method: 'POST',
       success: function(data) {
+
+        checkboxes.forEach(cb => {
+          cb.disabled = false;
+        });
+
         if (data.code === 'success'){
           window.location.reload()
         } else if(data.code === 'error'){
@@ -177,6 +186,11 @@ checkboxes.forEach(checkbox => {
             window.location.href = '/todo/'
           }
         }
+      },
+      error: function(data){
+        checkboxes.forEach(cb => {
+          cb.disabled = false;
+        });
       }
     })
 

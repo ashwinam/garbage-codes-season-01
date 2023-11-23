@@ -111,7 +111,7 @@ class ToDoView(LoginRequiredMixin, ListView):
         elif action == 'change_status':
             todo_id = self.request.POST.get('id', None)
             try:
-                obj = get_object_or_404(self.model, pk=123)
+                obj = get_object_or_404(self.model, pk=todo_id)
                 if obj:
                     if obj.status == 'In Progress':
                         obj.status = 'Complete'
