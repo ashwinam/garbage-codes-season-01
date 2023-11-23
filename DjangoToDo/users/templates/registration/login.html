@@ -20,11 +20,13 @@
     <div class="card-header">
         Login
        </div>
-       {% for k,v in form.errors.items %}
-          <div class="alert alert-danger" role="alert" id="myAlert">
-            {{ v }}
-          </div>
-        {% endfor %}
+       {% if form.errors %}
+        {% for k,v in form.errors.items %}
+            <div class="alert alert-danger" role="alert" id="myAlert">
+              {{ v }}
+            </div>
+          {% endfor %}
+        {% endif %}
         <form method="post" action="{% url "login" %}">
         {% csrf_token %}
         <div class="mb-3">
