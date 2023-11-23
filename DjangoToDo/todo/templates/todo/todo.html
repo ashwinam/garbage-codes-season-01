@@ -79,10 +79,10 @@
                     </thead>
                     <tbody>
                       {% for object in objects %}
-                      <tr>
+                      <tr class="{% if object.status == 'Complete' %}text-secondary{% endif %}">
                         <td>
                           <div class="form-check">
-                            <input class="form-check-input toggle_status" type="checkbox" value="" id="" data-todo_id="{{object.todo_id}}">
+                            <input class="form-check-input toggle_status" type="checkbox" value="" id="" data-todo_id="{{object.todo_id}}" {% if object.status == 'Complete' %} checked {% endif %}>
                           </div>
                         </td>
                         <th scope="row">{{ forloop.counter }}</th>
@@ -157,6 +157,31 @@
   
   // Call the function to remove the alert
   removeAlert();
+
+    // Get all checkboxes with the class 'my-checkbox'
+    const checkboxes = document.querySelectorAll('.toggle_status');
+
+// Add a change event listener to each checkbox
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', function() {
+
+    $.ajax({
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},                                                
+      url: "{% url 'todos' %}",
+      data: {'action': 'change_status', 'id': this.dataset.todo_id},
+      method: 'POST',
+      success: function(data) {
+        if (data.code === 'success'){
+          window.location.reload()
+        } else if(data.code === 'error'){
+          alert(data.message)
+        }
+      }
+    })
+
+  });
+});
+
 </script>
 
 {% endblock jsscript %}

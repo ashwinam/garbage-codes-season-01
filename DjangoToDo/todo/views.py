@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models.query import QuerySet
+from django.http import JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, TemplateView
@@ -43,6 +44,7 @@ class ToDoView(LoginRequiredMixin, ListView):
     def post(self, *args, **kwargs):
         action = self.request.POST.get('action', None)
         todo_id = self.request.POST.get('todo_id', None)
+        print(action, 'action --')
         if todo_id:
             obj = get_object_or_404(ToDoTbl, pk=todo_id)
 
@@ -106,6 +108,23 @@ class ToDoView(LoginRequiredMixin, ListView):
                 return render(self.request, self.template_name, {'objects': self.paginator_obj(1), 'form': self.form_class(), 'current_page': self.paginator_obj(1).number})
             else:
                 return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
+        elif action == 'change_status':
+            todo_id = self.request.POST.get('id', None)
+            try:
+                obj = get_object_or_404(self.model, pk=todo_id)
+                if obj:
+                    if obj.status == 'In Progress':
+                        obj.status = 'Complete'
+                        obj.save()
+                        return JsonResponse({'code': 'success', 'message': 'Status change successfully'}, status=200)
+                    elif obj.status == 'Complete':
+                        obj.status = 'In Progress'
+                        obj.save()
+                        return JsonResponse({'code': 'success', 'message': 'Status change successfully'}, status=200)
+                else:
+                    return JsonResponse({'code': 'error', 'message': "Something went wrong!"}, status=200)
+            except Exception as e:
+                return JsonResponse({'code': 'error'})
         else:
             return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
     
