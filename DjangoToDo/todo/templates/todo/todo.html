@@ -69,6 +69,7 @@
                 <table class="table">
                     <thead>
                       <tr>
+                        <th></th>
                         <th scope="col">#</th>
                         <th scope="col">ToDo Name</th>
                         <th scope="col">Todo Description</th>
@@ -79,6 +80,11 @@
                     <tbody>
                       {% for object in objects %}
                       <tr>
+                        <td>
+                          <div class="form-check">
+                            <input class="form-check-input toggle_status" type="checkbox" value="" id="" data-todo_id="{{object.todo_id}}">
+                          </div>
+                        </td>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>{{ object.todo_name }}</td>
                         <td>{{ object.todo_description }}</td>
