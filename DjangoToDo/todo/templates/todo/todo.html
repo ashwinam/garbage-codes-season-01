@@ -158,8 +158,7 @@
   // Call the function to remove the alert
   removeAlert();
 
-    // Get all checkboxes with the class 'my-checkbox'
-    const checkboxes = document.querySelectorAll('.toggle_status');
+const checkboxes = document.querySelectorAll('.toggle_status');
 
 // Add a change event listener to each checkbox
 checkboxes.forEach(checkbox => {
@@ -174,7 +173,9 @@ checkboxes.forEach(checkbox => {
         if (data.code === 'success'){
           window.location.reload()
         } else if(data.code === 'error'){
-          alert(data.message)
+          if(!alert(data.message)){
+            window.location.href = '/todo/'
+          }
         }
       }
     })

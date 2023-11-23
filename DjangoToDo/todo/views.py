@@ -111,7 +111,7 @@ class ToDoView(LoginRequiredMixin, ListView):
         elif action == 'change_status':
             todo_id = self.request.POST.get('id', None)
             try:
-                obj = get_object_or_404(self.model, pk=todo_id)
+                obj = get_object_or_404(self.model, pk=123)
                 if obj:
                     if obj.status == 'In Progress':
                         obj.status = 'Complete'
@@ -124,7 +124,7 @@ class ToDoView(LoginRequiredMixin, ListView):
                 else:
                     return JsonResponse({'code': 'error', 'message': "Something went wrong!"}, status=200)
             except Exception as e:
-                return JsonResponse({'code': 'error'})
+                return JsonResponse({'code': 'error', 'message': "Something went wrong!"})
         else:
             return render(self.request, 'todo/todo.html', {'form': ToDoForm()})
     
