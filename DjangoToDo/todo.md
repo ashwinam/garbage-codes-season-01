@@ -5,4 +5,4 @@ TODO 1:
 TODO 2:
     Searching functionality -- Done.
 TODO 3:
-    Pagination functionality -- Done
+    Pagination functionality -- Done.
